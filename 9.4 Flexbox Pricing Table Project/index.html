@@ -9,11 +9,101 @@
   <style>
     body {
       font-family: 'Sono', sans-serif;
+      margin: 0px;
+    }
+
+    .pricing-container{
+      display: flex;
+      justify-content: space-evenly;
+      flex-flow: row;
+      align-items: center;
+      height: 100vh;
+    }
+    
+    .pricing-plan{
+      background-color: blanchedalmond;
+      padding: 20px;
+      text-align: center;
+      flex-basis: 300px;
+      min-height: 200px;
+      flex-shrink: 0;
+    }
+
+    li{
+      list-style: none;
+    }
+
+    ul{
+      padding: 0;
+    }
+
+    .plan-title{
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    .plan-price{
+      font-weight: bold;
+      font-size: 24px;
+    }
+
+    button{
+      background-color: orangered;
+      color: white;
+      border-radius: 5px;
+      border: 0;
+      padding: 10px;
     }
 
     /* Hint: What can you do with a media query and flexbox? */
-    @media (max-width: 1250px) {
+    @media (max-width: 1250px){
+        body {
+        font-family: 'Sono', sans-serif;
+        margin: 10px;
+      }
+
+      .pricing-container{
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        flex-flow: column;
+        gap: 10px;
+      }
       
+      .pricing-plan{
+        background-color: blanchedalmond;
+        padding: 20px;
+        text-align: center;
+        flex-shrink: 0;
+        flex-basis: 200px;
+        min-width: 300px
+      }
+
+      li{
+        list-style: none;
+      }
+
+      ul{
+        padding: 0;
+      }
+
+      .plan-title{
+        font-weight: bold;
+        font-size: 18px;
+      }
+
+      .plan-price{
+        font-weight: bold;
+        font-size: 24px;
+      }
+
+      button{
+        background-color: orangered;
+        color: white;
+        border-radius: 5px;
+        border: 0;
+        padding: 10px;
+      }
     }
   </style>
 </head>
