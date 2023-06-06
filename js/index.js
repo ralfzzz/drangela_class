@@ -1,16 +1,19 @@
-// var name= "rifqi";
-// console.log("hai "+ name);
-    var a = "3";
-    var b = "8";
-    
-/***********Do not change the code above 👆*******/
-//Write your code on lines 7 - 9:
-    var c = a;
-    a = b;
-    b = c;
+// slice
+var text = prompt("Your Text: ");
+var maxText = 140;
+var cutText = text.slice(0,140);
+var currentText = cutText.length;
+alert(cutText);
+alert("Panjang text anda: " + currentText);
+alert("Sisa karakter: " + (maxText-currentText));
 
-    
-/***********Do not change the code below 👇*******/
+// slice2
+var name = prompt("Your name: ");
+var upName = name.slice(0,1).toUpperCase();
+var restName = name.slice(1,name.length).toLowerCase();
+alert(upName+restName);
 
-    console.log("a is " + a);
-    console.log("b is " + b);
+// dog-human age calculator
+var dogAge = prompt("Umur anjing anda: ");
+var humanAge = (((dogAge-2)*4)+21);
+alert(humanAge);
