@@ -1,19 +1,28 @@
-// slice
-var text = prompt("Your Text: ");
-var maxText = 140;
-var cutText = text.slice(0,140);
-var currentText = cutText.length;
-alert(cutText);
-alert("Panjang text anda: " + currentText);
-alert("Sisa karakter: " + (maxText-currentText));
+function getMilk(cost) {   
+    console.log("leaveHouse");
+    console.log("moveRight");
+    console.log("moveRight");
+    console.log("moveUp");
+    console.log("moveUp");
+    console.log("moveUp");
+    console.log("moveUp");
+    console.log("moveRight");
+    console.log("moveRight");
+    console.log("Dapat " + Math.floor(cost/(1.5)) + " botol susu.")
+    console.log("moveLeft");
+    console.log("moveLeft");
+    console.log("moveDown");
+    console.log("moveDown");
+    console.log("moveDown");
+    console.log("moveDown");
+    console.log("moveLeft");
+    console.log("moveLeft");
+    console.log("enterHouse");
+  }
 
-// slice2
-var name = prompt("Your name: ");
-var upName = name.slice(0,1).toUpperCase();
-var restName = name.slice(1,name.length).toLowerCase();
-alert(upName+restName);
+getMilk(5);
 
-// dog-human age calculator
-var dogAge = prompt("Umur anjing anda: ");
-var humanAge = (((dogAge-2)*4)+21);
-alert(humanAge);
+// function getMilk (bottles) {
+//     var cost = bottles * 1.5;
+//     //Do something with cost
+//     }
