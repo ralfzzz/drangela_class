@@ -32,9 +32,24 @@ var houseKeeper1 = {
     ]
 }
 
-//constractor function
+//constractor function: function to easily create object
 function HouseKeeper(nama,age,languages) {
     this.nama = nama;
     this.age = age;
     this.languages = languages;
+}
+
+//to create object using constractor function
+var houseKeeper2 = new HouseKeeper (["Rifqi","Aziz"],"Magelang",23);
+houseKeeper2.name;//to call object properties
+houseKeeper2.bebersih();//to call method
+
+//methods: function inside object
+function HouseKeeper (nama, asal, umur){
+    this.nama = nama;
+    this.asal = asal;
+    this.umur = umur;
+    this.bebersih = function (){ //this is method
+        alert("proses bebersih!");
+    }
 }
