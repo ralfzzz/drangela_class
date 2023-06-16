@@ -12,16 +12,19 @@ for (let i = 0; i < document.querySelectorAll(".drum").length; i++) {
             var clicked = this.innerHTML;
             // alert(clicked);
             makeSounds(clicked);
+            animateCLick(clicked);
             
         });    
     }
 
-    document.addEventListener("keydown", function(event) {
+    document.addEventListener("keypress", function(event) {
         
         var key = event.key;
         // console.log(key);
         
             makeSounds(key);
+            animateCLick(key);
+            // animateCLickUp(key);
             
     })
 
@@ -66,6 +69,73 @@ for (let i = 0; i < document.querySelectorAll(".drum").length; i++) {
             default: console.log(key);
         }
     }
+
+    function animateCLick(trigger) {
+        var active = document.querySelector("."+trigger);
+        switch (trigger) {
+            case "w":
+                active.classList.add("pressed");
+                setTimeout( function() {                    //penulisan function
+                    active.classList.remove("pressed");     //callback function supaya tida perlu mendefinisika nfunction
+                }, 100);
+            break;
+            
+            case "a":
+                active.classList.add("pressed");
+                setTimeout(() => {                          //cara lain menulis function
+                    active.classList.remove("pressed");
+                }, 100);
+            break;
+                
+            case "s":
+                active.classList.add("pressed");
+                setTimeout(() => {
+                    active.classList.remove("pressed");
+                }, 100);
+            break;
+
+            case "d":
+                active.classList.add("pressed");
+                setTimeout(() => {
+                    active.classList.remove("pressed");
+                }, 100);
+            break;
+        
+            case "j":
+                active.classList.add("pressed");
+                setTimeout(() => {
+                    active.classList.remove("pressed");
+                }, 100);
+            break;
+
+            case "k":
+                active.classList.add("pressed");
+                setTimeout(() => {
+                    active.classList.remove("pressed");
+                }, 100);
+            break;
+
+            case "l":
+                active.classList.add("pressed");
+                setTimeout(() => {
+                    active.classList.remove("pressed");
+                }, 100);
+            break;
+
+
+            default: console.log(trigger);
+        }
+        
+
+    }
+
+    // function animateCLickUp(trigger) {
+    //     var active = document.querySelector("."+trigger);
+    //     active.classList.remove("pressed");
+    // }
+
+
+    
 
 
     // var audio = new Audio('./sounds/tom-1.mp3');
