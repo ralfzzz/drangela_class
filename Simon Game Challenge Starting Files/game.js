@@ -8,6 +8,8 @@ var buttonColours = [
 
 var gamePattern = [];
 var userClickedPattern = [];
+var level = 0;
+var started = false;
 
 function nextSequence() {
     var randomNumber = Math.floor(Math.random() * 4);
@@ -15,6 +17,7 @@ function nextSequence() {
     gamePattern.push(randomChoosenColour);
     animateFlash(randomChoosenColour);
     palySounds(randomChoosenColour);
+    levelCounter();
 }
 
 function animateFlash(randomChoosenColour) {
@@ -35,6 +38,10 @@ function animatePress(currentColor) {
     }, 100);
 }
 
+function levelCounter() {
+    level += 1;
+}
+
 // function clickedColor() {
     // $(document).keypress((event) => {
     $(".btn").click((event) => {
@@ -46,8 +53,14 @@ function animatePress(currentColor) {
     });
 // }
 
-$(document).keypress((event) => {
-
+$(document).keypress(() => {
+    if (!started) { //track start only one time
+        
+        nextSequence();
+        // console.log(level);
+        $("h1").text("Level " + level);
+        started = true;
+    }
 });
 
 
