@@ -68,9 +68,10 @@ function checkAnswer(currentLevel) {
             }
         } else {
             console.log("false");
-            $("h1").text("Game Over!!! Press any key to restart!");
+            $("h1").text("Game Over!!! Press RESTART to play again!");
             animateGameOver();
             palySounds("wrong");
+            $(".btn-start").text("RESTART");
             startOver();
         }
 }
@@ -94,11 +95,12 @@ $(".btn").click((event) => {
 });
 
 //start the game
-$(document).keypress(() => {
+$(".btn-start").click(() => {
     if (!started) { //track start only one time
         nextSequence();
         // console.log(level);
         $("h1").text("Level " + level);
+        $(".btn-start").text("Follow the colors!");
         started = true;
     }
 });
