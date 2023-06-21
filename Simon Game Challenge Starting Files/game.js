@@ -5,7 +5,6 @@ var buttonColours = [
     "green",
     "yellow"
 ]
-
 var gamePattern = [];
 var userClickedPattern = [];
 var level = 0;
@@ -18,6 +17,7 @@ function nextSequence() {
     animateFlash(randomChoosenColour);
     palySounds(randomChoosenColour);
     levelCounter();
+    userClickedPattern = [];
 }
 
 function animateFlash(randomChoosenColour) {
@@ -38,30 +38,72 @@ function animatePress(currentColor) {
     }, 100);
 }
 
+function animateGameOver() {
+    $("body").addClass("game-over");
+    setTimeout(() => {
+        $("body").removeClass("game-over");
+    }, 100);
+}
+
 function levelCounter() {
     level += 1;
 }
 
-// function clickedColor() {
-    // $(document).keypress((event) => {
-    $(".btn").click((event) => {
-        // console.log(event.target.id);
-        var userChoosenColor = event.target.id;
-        userClickedPattern.push(userChoosenColor);
-        palySounds(userChoosenColor);
-        animatePress(userChoosenColor);
-    });
+function startOver() {
+    started = false;
+    level = 0;
+    userClickedPattern = [];
+    gamePattern = [];
+}
+
+function checkAnswer(currentLevel) {
+
+        if (gamePattern[currentLevel] === userClickedPattern[currentLevel]) {
+            console.log("true");
+            if (gamePattern.length === userClickedPattern.length) {
+                setTimeout(() => {
+                    nextSequence();
+                    $("h1").text("Level " + level);
+                }, 1000);
+            }
+        } else {
+            console.log("false");
+            $("h1").text("Game Over!!! Press any key to restart!");
+            animateGameOver();
+            palySounds("wrong");
+            startOver();
+        }
+}
+
+// function arrayEquals(a, b) {
+//     return Array.isArray(a) &&
+//         Array.isArray(b) &&
+//         a.length === b.length &&
+//         a.every((val, index) => val === b[index]);
 // }
 
+//click pattern
+$(".btn").click((event) => {
+    var userChoosenColor = event.target.id;
+    userClickedPattern.push(userChoosenColor);
+    palySounds(userChoosenColor);
+    animatePress(userChoosenColor);
+    var currentLevel = userClickedPattern.length-1;
+    checkAnswer(currentLevel);
+    
+});
+
+//start the game
 $(document).keypress(() => {
     if (!started) { //track start only one time
-        
         nextSequence();
         // console.log(level);
         $("h1").text("Level " + level);
         started = true;
     }
 });
+
+
 
 
 
