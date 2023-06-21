@@ -91,7 +91,7 @@ $(".btn-start").click(() => {
         nextSequence();
         // console.log(level);
         $("h1").text("Level " + level);
-        $(".btn-start").text("Follow the colors!");
+        $(".btn-start").text("Follow the colors from the start!");
         started = true;
     }
 });
