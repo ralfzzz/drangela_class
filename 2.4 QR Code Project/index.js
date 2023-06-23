@@ -16,9 +16,10 @@ inquirer.prompt([
       }])
      .then(function(answer){
     //    console.log(answer.url);
-        var qr_png = qr.image(answer, { type: 'png' });
-        // qr_png.pipe(require('fs').createWriteStream('i_love_qr.png'));
-       fs.writeFile('./URL.txt', answer.url, (err) => {
+        var qr_png = qr.image(answer.url, { type: 'png' });
+        qr_png.pipe(fs.createWriteStream('i_love_qr.png'));
+       
+        fs.appendFile('./URL.txt', `${answer.url} \n`, (err) => {
         if (err) throw err;
         console.log('The file has been saved!');
       })}); 
