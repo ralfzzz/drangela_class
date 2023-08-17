@@ -2,17 +2,17 @@ import express from "express";
 import bodyParser from "body-parser";
 
 const app = express();
-const port = 3000;
+const port = 3001;
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get("/", (req, res) => {
-  res.render("index.ejs");
+  res.render("solution.ejs");
 });
 
 app.post("/submit", (req, res) => {
   const numLetters = req.body["fName"].length + req.body["lName"].length;
-  res.render("index.ejs", { numberOfLetters: numLetters });
+  res.render("solution.ejs", { numberOfLetters: numLetters });
 });
 
 app.listen(port, () => {
