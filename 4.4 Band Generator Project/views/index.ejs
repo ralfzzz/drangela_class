@@ -4,7 +4,7 @@
     Change the h1 to show the adjective and noun.
     But when the user first goes on the website and there is no adjective and noun, 
     Show the default h1 below -->
-<% if (locals.fName) { %>
+<% if (locals.fName && locals.lName) { %>
 <h1><%= fName %> <%= lName %></h1>
 <% } else { %>
 
