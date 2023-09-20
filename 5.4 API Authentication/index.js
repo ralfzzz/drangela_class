@@ -25,6 +25,7 @@ app.get("/noAuth", async (req, res) => {
       res.render("index.ejs", { content: result });
     } catch (error) {
       console.error("Failed to make request:", error.message);
+      res.status(404).send(error.message);
     }
 });
 
@@ -52,6 +53,7 @@ app.get("/basicAuth", async (req, res) => {
       res.render("index.ejs", { content: result });
     } catch (error) {
       console.error("Failed to make request:", error.message);
+      res.status(404).send(error.message);
     }
 });
 
@@ -70,6 +72,7 @@ app.get("/apiKey", async (req, res) => {
     res.render("index.ejs", { content: result });
   } catch (error) {
     console.error("Failed to make request:", error.message);
+    res.status(404).send(error.message);
   }
 });
 
@@ -95,6 +98,7 @@ app.get("/bearerToken", async (req, res) => {
     res.render("index.ejs", { content: result });
   } catch (error) {
     console.error("Failed to make request:", error.message);
+    res.status(404).send(error.message);
   }
 });
 
