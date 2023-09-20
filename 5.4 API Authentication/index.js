@@ -63,7 +63,7 @@ app.get("/apiKey", async (req, res) => {
   //HINT: You need to provide a query parameter of apiKey in the request.
   try {
     const response = await axios.get(`${API_URL}`+'filter',{
-      params: {
+      params: {                                             //untuk memasukkan header atau parameter request get/post
         score: 7,
         apiKey: yourAPIKey,
       },
