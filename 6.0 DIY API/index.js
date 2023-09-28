@@ -1,5 +1,6 @@
 import express from "express";
 import bodyParser from "body-parser";
+import axios from "axios";
 
 const app = express();
 const port = 3000;
@@ -19,10 +20,11 @@ app.get('/random', (req,res) => {
 app.get('/jokes/:id', (req,res) => {
   let resp = '';
   let id = parseInt(req.params.id);
-  if (id > jokes.length) {
+  if (!jokes.find((joke) => joke.id === id )) {
     resp = [ {resp : "no joke found!"} ];
   } else {
     resp = jokes.find((joke) => joke.id === id );
+    (!resp) ? resp = [ {resp : "no joke found!"} ] : console.log(resp);  
     // jokes.forEach(joke => {
     //    if (joke.id == id) {
     //     // console.log(joke);
@@ -52,14 +54,86 @@ app.get('/filter', (req,res) => {
 })
 
 //4. POST a new joke
+app.post('/jokes', (req,res) => {
+  let resp = new Array();
+  let type = req.body.type;
+  let text = req.body.text;
+  // console.log(type+text);
+  if (!type || !text) {
+    resp = [ {resp : "please fill all the inputs!"} ];
+  } else {
+    let joke = {id: (jokes.length+1 ), jokeText: text, jokeType: type};
+    jokes.push(joke);
+    resp = [ {resp : "joke successfully joke!"} ];
+    
+  }
+    res.json(resp);
+})
+
 
 //5. PUT a joke
+app.put('/jokes/:id', (req,res) => {
+  let resp = new Array();
+  let id = req.params.id;
+  let type = req.body.type;
+  let text = req.body.text;
+  if (!type && !text) {
+    resp = [ {resp : "you didnt edit anything!"} ];
+  } else {
+    let updateJoke = jokes.findIndex((joke => joke.id == id));
+    jokes[updateJoke].jokeText = !text ? '' : text;
+    jokes[updateJoke].jokeType = !type ? '' : type;
+    resp = [ {resp : "joke successfully joke!"} ];
+  }
+    res.json(resp);
+})
 
 //6. PATCH a joke
+app.patch('/jokes/:id', (req,res) => {
+  let resp = new Array();
+  let id = req.params.id;
+  let type = req.body.type;
+  let text = req.body.text;
+  if (!type && !text) {
+    resp = [ {resp : "you didnt edit anything!"} ];
+  } else {
+    let updateJoke = jokes.findIndex((joke) => joke.id == id);
+    // jokes[updateJoke].jokeText = !text ? jokes[updateJoke].jokeText : text;
+    jokes[updateJoke].jokeText = text || jokes[updateJoke].jokeText;
+    jokes[updateJoke].jokeType = !type ? jokes[updateJoke].jokeType : type;
+    resp = [ {resp : "joke successfully joke!"} ];
+  }
+    res.json(resp);
+})
 
 //7. DELETE Specific joke
+app.delete('/jokes/:id', (req,res) => {
+  let resp = new Array();
+  let id = parseInt(req.params.id);
+  let deleteJoke = jokes.findIndex((joke) => joke.id === id);
+  console.log(deleteJoke);
+  if (deleteJoke > -1) {
+    // console.log(jokes[deleteJoke]);
+    jokes.splice(deleteJoke,1);
+    resp = [ {resp : "joke deleted joke!"} ];
+  } else {
+    resp = [ {resp : "joke didnt found!"} ];
+  }
+    res.json(resp);
+})
 
 //8. DELETE All jokes
+app.delete('/all', (req,res) => {
+  let resp = new Array();
+  const key = req.query.key;
+  if (key === masterKey) {
+    jokes = [];
+    resp = [ {resp : "successfully delete jokes!"} ];
+  } else {
+    resp = [ {resp : "you need key to delete joke!"} ];
+  }
+    res.json(resp);
+})
 
 app.listen(port, () => {
   console.log(`Successfully started server on port ${port}.`);
