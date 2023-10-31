@@ -1,6 +1,7 @@
 const express = require('express');
 const ejs = require('ejs');
 const bodyParser = require('body-parser');
+const queryDB = require('./models/db');
 
 const app = express();
 const port = 8010;
@@ -10,6 +11,7 @@ app.use(bodyParser.urlencoded({extended:true}));
 
 
 app.get('/',(req,res)=>{
+    console.log(queryDB);
     res.render('home');
 })
 
