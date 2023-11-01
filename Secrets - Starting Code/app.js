@@ -46,9 +46,9 @@ app.post('/login',(req,res)=>{
     var email = req.body.username;
     var password = req.body.password;
     check(email,password).then(status => {
-        if (status==1) {
+        if (status) {
             console.log("login success")
-            res.redirect('/');
+            res.render('secrets');
         } else {
             console.log("login failed")
             res.redirect('/login');
