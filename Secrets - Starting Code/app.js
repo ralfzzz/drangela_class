@@ -1,7 +1,6 @@
 const express = require('express');
-const ejs = require('ejs');
 const bodyParser = require('body-parser');
-const queryDB = require('./models/db');
+const { insert, check, checkRegister} = require('./models/db');
 
 const app = express();
 const port = 8010;
@@ -21,18 +20,40 @@ app.get('/register',(req,res)=>{
 app.post('/register',(req,res)=>{
     var email = req.body.username;
     var password = req.body.password;
-    var insert = queryDB(email,password).then(status => {
-        if (status) {
-            console.log('User inserted');
-            res.redirect('/');
+    checkRegister(email).then(statusRegister=>{
+        if (statusRegister==0) {
+            insert(email,password).then(status => {
+                if (status) {
+                    console.log('User inserted');
+                    res.redirect('/');
+                } else {
+                    res.redirect('/register');
+                }
+            });
         } else {
+            console.log("email already registered!")
             res.redirect('/register');
         }
-    });
+    })
+
 })
 
 app.get('/login',(req,res)=>{
     res.render('login');
+})
+
+app.post('/login',(req,res)=>{
+    var email = req.body.username;
+    var password = req.body.password;
+    check(email,password).then(status => {
+        if (status==1) {
+            console.log("login success")
+            res.redirect('/');
+        } else {
+            console.log("login failed")
+            res.redirect('/login');
+        }
+    });
 })
 
 app.listen(port,()=>{
