@@ -11,12 +11,24 @@ app.use(bodyParser.urlencoded({extended:true}));
 
 
 app.get('/',(req,res)=>{
-    console.log(queryDB);
     res.render('home');
 })
 
 app.get('/register',(req,res)=>{
     res.render('register');
+})
+
+app.post('/register',(req,res)=>{
+    var email = req.body.username;
+    var password = req.body.password;
+    var insert = queryDB(email,password).then(status => {
+        if (status) {
+            console.log('User inserted');
+            res.redirect('/');
+        } else {
+            res.redirect('/register');
+        }
+    });
 })
 
 app.get('/login',(req,res)=>{
