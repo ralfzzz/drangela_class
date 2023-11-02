@@ -1,5 +1,6 @@
 require('dotenv').config();
 const { Pool } = require('pg');
+const bcrypt = require('bcrypt');
 
 const pool = new Pool({
     user: 'postgres',
@@ -29,11 +30,10 @@ const check = async (email,password) => {
         const client = await pool.connect()
         var check = await client.query(`SELECT pgp_sym_decrypt(password::bytea,$2) as password FROM public.user WHERE email=$1`, [email,secret]); // sends queries
         client.release();            // closes connection
-        if (check.rows[0]) {
-            if (check.rows[0].password==password) {
-                return true;            
-            }
+        if (check.rows[0]){
+            return check.rows[0].password;
         }
+
     } catch (error) {
         console.error(error.stack);
         return false;
