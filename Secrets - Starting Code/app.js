@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const { insert, check, checkRegister} = require('./models/db');
 require('dotenv').config();
+const md5 = require('md5');
 
 const app = express();
 const port = 8010;
@@ -20,7 +21,7 @@ app.get('/register',(req,res)=>{
 
 app.post('/register',(req,res)=>{
     var email = req.body.username;
-    var password = req.body.password;
+    var password = md5(req.body.password);
     checkRegister(email).then(statusRegister=>{
         if (statusRegister==0) {
             insert(email,password).then(status => {
@@ -45,7 +46,7 @@ app.get('/login',(req,res)=>{
 
 app.post('/login',(req,res)=>{
     var email = req.body.username;
-    var password = req.body.password;
+    var password = md5(req.body.password);
     check(email,password).then(status => {
         if (status) {
             console.log("login success")
