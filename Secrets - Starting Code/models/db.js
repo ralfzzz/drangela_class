@@ -1,3 +1,4 @@
+require('dotenv').config();
 const { Pool } = require('pg');
 
 const pool = new Pool({
@@ -8,7 +9,7 @@ const pool = new Pool({
     port: 5433,
 })
 
-const secret = "Horsejaran22";
+const secret = process.env.DB_SECRET;
 // db.connect()
     
 const insert = async (email,password) => {
