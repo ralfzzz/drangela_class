@@ -25,13 +25,13 @@ const insert = async (email,password) => {
     }
 };
 
-const check = async (email,password) => {
+const checkLogin = async (email,password) => {
     try {
         const client = await pool.connect()
-        var check = await client.query(`SELECT pgp_sym_decrypt(password::bytea,$2) as password FROM public.user WHERE email=$1`, [email,secret]); // sends queries
+        var check = await client.query(`SELECT pgp_sym_decrypt(password::bytea,$2) as password,email FROM public.user WHERE email=$1`, [email,secret]); // sends queries
         client.release();            // closes connection
         if (check.rows[0]){
-            return check.rows[0].password;
+            return check.rows[0];
         }
 
     } catch (error) {
@@ -52,5 +52,5 @@ const checkRegister = async (email) => {
     }
 };
 
-module.exports = { insert, check, checkRegister}
+module.exports = { insert, checkLogin, checkRegister}
 
