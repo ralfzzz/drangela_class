@@ -8,6 +8,7 @@ const LocalStrategy = require('passport-local');
 var router = express.Router();
 
 passport.use(new LocalStrategy(function verify(email, password, cb) {
+    // jd check loginnya dimasukkan ke passport
     checkLogin(email,password).then(row => {
         if (row) {
             bcrypt.compare(password, row.password, function(err,result) {
@@ -25,7 +26,7 @@ passport.use(new LocalStrategy(function verify(email, password, cb) {
 
 passport.serializeUser(function(user, cb) {
 process.nextTick(function() {
-    cb(null, { id: user.id, username: user.username });
+    cb(null, { id: user.id, email: user.email });
 });
 });
 

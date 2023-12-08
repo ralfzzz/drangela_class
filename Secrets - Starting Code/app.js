@@ -5,6 +5,7 @@ const authRouter = require('./routes/auth');
 const indexRouter = require('./routes/index');
 const passport = require('passport');
 const session = require('express-session');
+const SQLiteStore = require('connect-sqlite3')(session);
 
 const app = express();
 const port = 8010;
@@ -16,7 +17,10 @@ app.use(session({
     secret: 'testingtresting',
     resave: false,
     saveUninitialized: false,
-    // store: "to save session into db"
+    cookie:{
+        maxAge: 60000*5,
+    },
+    store: new SQLiteStore({ db: 'sessions.db', dir: './var/db' })
   }));
 app.use(passport.authenticate('session'));
 
