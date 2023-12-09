@@ -1,9 +1,12 @@
+require('dotenv').config();
 const express = require('express');
 const { insert, checkLogin, checkRegister} = require('../models/db');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
+
 
 var router = express.Router();
 
@@ -82,5 +85,30 @@ router.post('/register',(req,res)=>{
     });
 
 })
+
+passport.use(new GoogleStrategy({
+    clientID: process.env.GOOGLE_CLIENT_ID,
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    callbackURL: "http://localhost:8010/auth/google/callback",
+    userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo"
+  },
+  function(accessToken, refreshToken, profile, cb) {
+    User.findOrCreate({ googleId: profile.id }, function (err, user) {
+      return cb(err, user);
+    });
+  }
+));
+
+router.get('/auth/google',
+  passport.authenticate('google', { scope: ['profile'] }));
+
+router.get('/auth/google/callback', 
+  passport.authenticate('google', { 
+    failureRedirect: '/login', }),
+  function(req, res) {
+    console.log(req.user);
+    // Successful authentication, redirect home.
+    res.redirect('/');
+  });
 
 module.exports = router;
