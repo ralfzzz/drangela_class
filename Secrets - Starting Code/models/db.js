@@ -12,7 +12,12 @@ const pool = new Pool({
 
 const secret = process.env.DB_SECRET;
 // db.connect()
-    
+
+function getCurrentTimestamp() {
+    return new Date().toLocaleString('en-US', { timeZone: 'Asia/Jakarta' });
+}
+const currentTimestamp = getCurrentTimestamp();
+
 const insert = async (email,password) => {
     try {
         const client = await pool.connect()
@@ -52,5 +57,31 @@ const checkRegister = async (email) => {
     }
 };
 
-module.exports = { insert, checkLogin, checkRegister}
+const generateUserOauth2 = async (googleId, displayName, email) => {
+    try {
+        const client = await pool.connect();
+        const checkResult = await client.query(`SELECT * FROM public.oauth2 WHERE google_id=($1)`, [googleId]);
+        const rowCount = checkResult.rowCount;
+        client.release();
+        
+        if (rowCount === 0) {
+            const insertResult = await client.query('INSERT INTO public.oauth2(google_id,display_name,email,created_at) VALUES($1,$2,$3,$4) RETURNING *', [googleId,displayName,email,currentTimestamp]);
+            
+            if (insertResult.rows.length > 0) {
+                return insertResult.rows[0];
+            } else {
+                console.error('Failed to insert new record.');
+                return false;
+            }
+        } else {
+            return checkResult.rows[0];
+        }
+    } catch (error) {
+        console.error(error.stack);
+        return false;
+    }
+};
+
+
+module.exports = { insert, checkLogin, checkRegister, generateUserOauth2}
 

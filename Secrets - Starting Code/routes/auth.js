@@ -1,6 +1,6 @@
 require('dotenv').config();
 const express = require('express');
-const { insert, checkLogin, checkRegister} = require('../models/db');
+const { insert, checkLogin, checkRegister, generateUserOauth2} = require('../models/db');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 const passport = require('passport');
@@ -29,7 +29,7 @@ passport.use(new LocalStrategy(function verify(email, password, cb) {
 
 passport.serializeUser(function(user, cb) {
 process.nextTick(function() {
-    cb(null, { id: user.id, email: user.email });
+    cb(null, { id: user.id, email: user.email, displayName: user.display_name });
 });
 });
 
@@ -92,21 +92,19 @@ passport.use(new GoogleStrategy({
     callbackURL: "http://localhost:8010/auth/google/callback",
     userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo"
   },
-  function(accessToken, refreshToken, profile, cb) {
-    User.findOrCreate({ googleId: profile.id }, function (err, user) {
-      return cb(err, user);
-    });
+  async function (accessToken, refreshToken, profile, cb) {
+    var user = await generateUserOauth2(profile.id, profile.displayName, profile.emails[0].value);
+    return cb(null,user);
   }
 ));
 
 router.get('/auth/google',
-  passport.authenticate('google', { scope: ['profile'] }));
+  passport.authenticate('google', { scope: ['profile','email'] }));
 
 router.get('/auth/google/callback', 
   passport.authenticate('google', { 
     failureRedirect: '/login', }),
   function(req, res) {
-    console.log(req.user);
     // Successful authentication, redirect home.
     res.redirect('/');
   });
