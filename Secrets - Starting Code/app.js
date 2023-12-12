@@ -11,13 +11,13 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy;
 
 
 const app = express();
-const port = 8010;
+const port = process.env.PORT;
 app.use(express.static('public'));
 app.set('view engine','ejs');
 app.use(bodyParser.urlencoded({extended:true}));
 
 app.use(session({
-    secret: 'testingtresting',
+    secret: process.env.SECRET,
     resave: false,
     saveUninitialized: false,
     cookie:{

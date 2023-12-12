@@ -1,6 +1,6 @@
 require('dotenv').config();
 const express = require('express');
-const { insert, checkLogin, checkRegister, generateUserOauth2} = require('../models/db');
+const { insert, checkLogin, checkRegister, checkAndGenerateUserOauth2} = require('../models/db');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 const passport = require('passport');
@@ -93,7 +93,7 @@ passport.use(new GoogleStrategy({
     userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo"
   },
   async function (accessToken, refreshToken, profile, cb) {
-    var user = await generateUserOauth2(profile.id, profile.displayName, profile.emails[0].value);
+    var user = await checkAndGenerateUserOauth2(profile.id, profile.displayName, profile.emails[0].value);
     return cb(null,user);
   }
 ));

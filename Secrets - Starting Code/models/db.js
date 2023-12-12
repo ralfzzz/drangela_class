@@ -3,11 +3,11 @@ const { Pool } = require('pg');
 const bcrypt = require('bcrypt');
 
 const pool = new Pool({
-    user: 'postgres',
-    host: 'localhost',
-    database: 'secret_app',
-    password: 'Horsejaran22',
-    port: 5433,
+    user: process.env.PSQL_USER,
+    host: process.env.PSQL_HOST,
+    database: process.env.PSQL_DATABASE,
+    password: process.env.PSQL_PASSWORD,
+    port: process.env.PSQL_PORT,
 })
 
 const secret = process.env.DB_SECRET;
@@ -57,7 +57,7 @@ const checkRegister = async (email) => {
     }
 };
 
-const generateUserOauth2 = async (googleId, displayName, email) => {
+const checkAndGenerateUserOauth2 = async (googleId, displayName, email) => {
     try {
         const client = await pool.connect();
         const checkResult = await client.query(`SELECT * FROM public.oauth2 WHERE google_id=($1)`, [googleId]);
@@ -82,6 +82,32 @@ const generateUserOauth2 = async (googleId, displayName, email) => {
     }
 };
 
+const insertSecret = async (secrets,writers) => {
+    try {
+        const client = await pool.connect()
+        await client.query(`INSERT INTO public.secrets (secrets,writers,inserted_at) VALUES ($1, $2, CURRENT_TIMESTAMP)`, [secrets, writers]);
+        client.release();
+        return true;
+    } catch (error) {
+        console.error(error.stack);
+        return false;
+    }
+};
 
-module.exports = { insert, checkLogin, checkRegister, generateUserOauth2}
+const getSecret = async () => {
+    try {
+        const client = await pool.connect()
+        var getSecretDataFromDB = await client.query(`SELECT secrets FROM public.secrets`);
+        client.release();
+        if (getSecretDataFromDB.rows){
+            return getSecretDataFromDB.rows;
+        }
+    } catch (error) {
+        console.error(error.stack);
+        return false;
+    }
+};
+
+
+module.exports = { insert, checkLogin, checkRegister, checkAndGenerateUserOauth2, insertSecret, getSecret}
 
