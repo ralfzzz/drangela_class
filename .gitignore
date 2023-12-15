@@ -1,6 +1,7 @@
 *.zip
 *.pdf
 *.db
+package-lock.json
 
 .env
 
