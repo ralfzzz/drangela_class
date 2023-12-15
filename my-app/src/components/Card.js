@@ -1,4 +1,6 @@
 import React from "react";
+const {Avatar} = require('./Avatar');
+const {Details} = require('./Details');
 
 
 export function Card(props){
@@ -7,15 +9,11 @@ export function Card(props){
       <div className="card">
         <div className="top">
           <h2 className="name">{props.name}</h2>
-          <img
-          className="circle-img"
-            src={props.image}
-            alt="avatar_img"
-          />
+          <Avatar imgUrl={props.image} />
         </div>
         <div className="bottom">
-          <p className="info">{props.phone}</p>
-          <p className="info">{props.email}</p>
+        <Details detailInfo={props.phone}/>
+        <Details detailInfo={props.email}/>
         </div>
       </div>
     </div>
