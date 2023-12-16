@@ -14,6 +14,7 @@ export function Card(props){
         <div className="bottom">
         <Details detailInfo={props.phone}/>
         <Details detailInfo={props.email}/>
+        <Details detailInfo={props.id}/>
         </div>
       </div>
     </div>
