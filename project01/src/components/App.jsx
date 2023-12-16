@@ -1,22 +1,24 @@
-import React from "react";
+import React,{useState} from "react";
 
-const {Login} = require('./Login');
+export function App() {
+  const initialState=0;
 
-var isLoggin = false;
+  const [count,setCount] = useState(initialState);
 
-function renderConditionally(){
-    if (isLoggin===true) {
-        return(<Login />);
-    } else {
-        return(<h1>Hello</h1>);
-    }
-}
+  function increase(){
+    setCount(count + 1);
+  }
 
-function App() {
+  function decrease(){
+    setCount(count - 1);
+  }
+
   return (
     <div className="container">
-    {(isLoggin) ? <Login /> : <h1>Hello</h1>}
-    </div>
+    <h1>{count}</h1>
+    <button onClick={increase}>+</button>
+    <button onClick={decrease}>-</button>
+  </div>
   );
 }
 
