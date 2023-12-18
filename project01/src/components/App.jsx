@@ -1,21 +1,22 @@
 import React, { useState } from "react";
 
 function App() {
-  var currentTime = new Date().toLocaleTimeString('it-IT');
 
-  const [currentTimeValue, getCurrentTime] = useState(currentTime);
+  const [button, setButton] = useState("");
 
-  function getTime(){
-    getCurrentTime(new Date().toLocaleTimeString('it-IT'));
+  function changeButtonBlack(){
+    setButton("black");
   }
 
-  setInterval(getTime,1000);
+  function changeButtonNormal(){
+    setButton("");
+  }
 
   return (
     <div className="container">
-      <h1>{currentTimeValue}</h1>
-      {/* <button onClick={getTime}>Get Time</button> */}
-      <button>Get Time</button>
+      <h1>Hello</h1>
+      <input type="text" placeholder="What's your name?" />
+      <button onMouseEnter={changeButtonBlack} onMouseLeave={changeButtonNormal} className={button}>Submit</button>
     </div>
   );
 }
