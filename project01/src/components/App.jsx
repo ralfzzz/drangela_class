@@ -1,80 +1,50 @@
 import React, { useState } from "react";
 
 function App() {
-
-  const [button, setButton] = useState("");
-  const [fullNameValue, setFullNameValue] = useState({
-    firstName:"",
-    lastName:""
+  const [contact, setContact] = useState({
+    fName: "",
+    lName: "",
+    email: ""
   });
 
-  // const [inputValue, setInputValue] = useState("");
-  // const [submitValue, setSubmitValue] = useState("");
-  // const [fNameValue, setFNameValue] = useState("");
-  // const [lNameValue, setLNameValue] = useState("");
-
-  function changeButtonBlack(){
-    setButton("black");
-  }
-
-  function changeButtonNormal(){
-    setButton("");
-  }
-
-  function getFullNameValue(event){
-    // const inputName = event.target.name;
-    // const inputValue = event.target.value;
-
-    const {name,value} = event.target;
-
-    setFullNameValue((prev)=>{
-      if (name === "firstName") {
+  function getContacts(event){
+    const {value,name} = event.target;
+    setContact((prevValue)=>{
+      if (name === "fName") {
         return({
-          firstName:value,
-          lastName:prev.lastName
-        })
-      } else if (name === "lastName") {
+          fName:value,
+          lName:prevValue.lName,
+          email:prevValue.email
+        });
+      } else if (name === "lName") {
         return({
-          firstName:prev.firstName,
-          lastName:value
-        })
+          fName:prevValue.fName,
+          lName:value,
+          email:prevValue.email
+        });
+      } else if (name === "email"){
+        return({
+          fName:prevValue.fName,
+          lName:prevValue.lName,
+          email:value
+        });
       }
-    });
-    // console.log(inputName);
-    // console.log(inputValue);
+    })
   }
-  
-  // function getInputValue(event){
-  //   setInputValue(event.target.value);
-  // }
-  
-  // function getFNameValue(event){
-  //   setFNameValue(event.target.value);
-  // }
-
-  // function getLNameValue(event){
-  //   setLNameValue(event.target.value);
-  // }
-
-  // function submitInputValue(event){
-  //   setSubmitValue(inputValue);
-
-  //   event.preventDefault();
-  // }
 
 
   return (
     <div className="container">
-      <h1>Hello {fullNameValue.firstName} {fullNameValue.lastName}</h1>
-    <form onSubmit="/">
-      <input onChange={getFullNameValue} name="firstName" type="text" placeholder="What's your fName?" value={fullNameValue.firstName}/>
-      <input onChange={getFullNameValue} name="lastName" type="text" placeholder="What's your lName?" value={fullNameValue.lastName}/>
-      {/* <input onChange={getFNameValue} type="text" placeholder="What's your fName?" value={fNameValue}/> */}
-      {/* <input onChange={getLNameValue} type="text" placeholder="What's your lName?" value={lNameValue}/> */}
-      {/* <input onChange={getInputValue} type="text" placeholder="What's your lName?" value={inputValue}/> */}
-      {/* <button onClick={submitInputValue} onMouseEnter={changeButtonBlack} onMouseLeave={changeButtonNormal} className={button}type="submit" >Submit</button> */}
-      <button onMouseEnter={changeButtonBlack} onMouseLeave={changeButtonNormal} className={button}type="submit" >Submit</button>
-    </form>
+      <h1>
+        Hello {contact.fName} {contact.lName}
+      </h1>
+      <p>{contact.email}</p>
+      <form>
+        <input onChange={getContacts} name="fName" placeholder="First Name" value={contact.fName}/>
+        <input onChange={getContacts} name="lName" placeholder="Last Name" value={contact.lName}/>
+        <input onChange={getContacts} name="email" placeholder="Email" value={contact.email}/>
+        <button>Submit</button>
+      </form>
     </div>
   );
 }
