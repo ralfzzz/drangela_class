@@ -1,5 +1,9 @@
 import React, { useState } from "react";
 
+const {Lists} = require('./Lists');
+const {Header} = require('./Header');
+const {Form} = require('./Form');
+
 function App() {
 
   const [todoListValue, collectTodoListValue] = useState("");
@@ -19,27 +23,32 @@ function App() {
     });
     collectTodoListValue("");
   }
+
+  function deleteList(id){
+    // console.log(id);
+    addTodoListValue(previousValue => {
+      return(
+        previousValue.filter((value,index) => {
+          return index !== id;
+        })
+      )
+    })
+  }
   
   
   return (
     <div className="container">
-      <div className="heading">
-        <h1>To-Do List</h1>
-      </div>
-      <div className="form">
-      {/* <form onSubmit={submitTodoListValue}> */}
-        <input type="text" value={todoListValue} onChange={getTodoListValue}/>
-        <button>
-          <span onClick={submitTodoListValue}>Add</span>
-        </button>
-    {/* </form> */}
-      </div>
+      <Header />
+      <Form todoListValue={todoListValue} getTodoListValue={getTodoListValue} submitTodoListValue={submitTodoListValue}/>      
       <div>
         <ul>
-            {lists.map((list,index) => {
-                return(<li key={index}>{list}</li>)
-            })}
-        </ul>
+        {lists.map((list,index) => {
+          return(
+            <Lists list={list} key={index} id={index} handleClick={deleteList}/>
+          )
+      })}
+
+      </ul>
       </div>
     </div>
   );
