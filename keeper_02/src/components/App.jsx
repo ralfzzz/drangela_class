@@ -6,22 +6,15 @@ const {Form} = require('./Form');
 
 function App() {
 
-  const [todoListValue, collectTodoListValue] = useState("");
   const [lists, addTodoListValue] = useState([]);
   
-  function getTodoListValue(event){
-    var inputTodoList = event.target.value;
-    collectTodoListValue(inputTodoList);
-  }
-
-  function submitTodoListValue(){
+    function submitTodoListValue(todoListValue){
     addTodoListValue((previousValue) => {
       return([
         ...previousValue,
         todoListValue
       ])
     });
-    collectTodoListValue("");
   }
 
   function deleteList(id){
@@ -39,16 +32,15 @@ function App() {
   return (
     <div className="container">
       <Header />
-      <Form todoListValue={todoListValue} getTodoListValue={getTodoListValue} submitTodoListValue={submitTodoListValue}/>      
+      <Form submitTodoListValue={submitTodoListValue}/>      
       <div>
         <ul>
-        {lists.map((list,index) => {
-          return(
-            <Lists list={list} key={index} id={index} handleClick={deleteList}/>
-          )
-      })}
-
-      </ul>
+          {lists.map((list,index) => {
+              return(
+                <Lists list={list} key={index} id={index} handleClick={deleteList}/>
+              )
+          })}
+        </ul>
       </div>
     </div>
   );
