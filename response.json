@@ -1,0 +1,107 @@
+[
+    {
+        "Result": [
+            {
+                "ThirdPartyDataId": 14307208,
+                "ProviderId": "telkomsel",
+                "ProviderElementId": "TSEL_2_122",
+                "ParentElementId": "TSEL",
+                "DisplayName": "Feed_Segment",
+                "Buyable": true,
+                "Description": "Intersection Between ULI and Telkomsel Data",
+                "AudienceSize": 0,
+                "ReceivedIDsCount": 0,
+                "ActiveIDsCount": 0,
+                "LastUpdatedAtUTC": null,
+                "ActiveIDsCountExpanded": false
+            }
+        ],
+        "ResultCount": 1,
+        "TotalFilteredCount": 1,
+        "TotalUnfilteredCount": 1
+    },
+    {
+        "Result": [
+            {
+                "ThirdPartyDataId": 14307209,
+                "ProviderId": "telkomsel",
+                "ProviderElementId": "TSEL_2_123",
+                "ParentElementId": "TSEL",
+                "DisplayName": "Control_Data",
+                "Buyable": true,
+                "Description": "Male, 18-35 yo",
+                "AudienceSize": 0,
+                "ReceivedIDsCount": 0,
+                "ActiveIDsCount": 0,
+                "LastUpdatedAtUTC": null,
+                "ActiveIDsCountExpanded": false
+            }
+        ],
+        "ResultCount": 1,
+        "TotalFilteredCount": 1,
+        "TotalUnfilteredCount": 1
+    },
+    {
+        "Result": [
+            {
+                "ThirdPartyDataId": 14307210,
+                "ProviderId": "telkomsel",
+                "ProviderElementId": "TSEL_2_124",
+                "ParentElementId": "TSEL",
+                "DisplayName": "Global_Control_Group",
+                "Buyable": true,
+                "Description": "Global_Control_Group",
+                "AudienceSize": 0,
+                "ReceivedIDsCount": 0,
+                "ActiveIDsCount": 0,
+                "LastUpdatedAtUTC": null,
+                "ActiveIDsCountExpanded": false
+            }
+        ],
+        "ResultCount": 1,
+        "TotalFilteredCount": 1,
+        "TotalUnfilteredCount": 1
+    },
+    {
+        "Result": [
+            {
+                "ThirdPartyDataId": 14307211,
+                "ProviderId": "telkomsel",
+                "ProviderElementId": "TSEL_2_125",
+                "ParentElementId": "TSEL",
+                "DisplayName": "LAL_PU",
+                "Buyable": true,
+                "Description": "LAL_PU",
+                "AudienceSize": 0,
+                "ReceivedIDsCount": 0,
+                "ActiveIDsCount": 0,
+                "LastUpdatedAtUTC": null,
+                "ActiveIDsCountExpanded": false
+            }
+        ],
+        "ResultCount": 1,
+        "TotalFilteredCount": 1,
+        "TotalUnfilteredCount": 1
+    },
+    {
+        "Result": [
+            {
+                "ThirdPartyDataId": 14307212,
+                "ProviderId": "telkomsel",
+                "ProviderElementId": "TSEL_2_126",
+                "ParentElementId": "TSEL",
+                "DisplayName": "LAL_Similarity",
+                "Buyable": true,
+                "Description": "LAL_Similarity",
+                "AudienceSize": 0,
+                "ReceivedIDsCount": 0,
+                "ActiveIDsCount": 0,
+                "LastUpdatedAtUTC": null,
+                "ActiveIDsCountExpanded": false
+            }
+        ],
+        "ResultCount": 1,
+        "TotalFilteredCount": 1,
+        "TotalUnfilteredCount": 1
+    }
+]
